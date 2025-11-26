@@ -1,0 +1,39 @@
+--- CARPETAS DE DEPENDENCIAS ---
+
+Ignora las carpetas de dependencias de Node.js en cualquier ubicación
+
+node_modules/
+**/node_modules/
+
+--- ARTEFACTOS DE BUILD Y COMPILACIÓN ---
+
+Frontend (Angular): Ignora las salidas de compilación
+
+/frontend/dist/
+/frontend/out/
+
+Backend (cualquier salida de compilación, si la tienes)
+
+/backend/dist/
+/backend/build/
+
+Angular caché
+
+.angular/cache
+.browserslistrc.log
+
+--- SECRETOS Y VARIABLES DE ENTORNO (CRUCIAL) ---
+
+Archivos de entorno y configuración
+
+*.env
+.env.local
+/backend/config/
+/backend/secrets/
+
+--- IDEs Y SISTEMAS OPERATIVOS ---
+
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
