@@ -1,0 +1,133 @@
+@use 'sass:color'; // Necesario para usar color.adjust()
+
+// Variables de color (coincidentes con un estilo limpio y moderno)
+$primary-color: #4285f4; // Azul para la acción principal
+$secondary-color: #e0e0e0; // Gris claro para la acción secundaria
+$background-color: #f7f7f7; // Fondo ligero para el container
+$card-bg: #ffffff; // Fondo blanco para la tarjeta
+$text-color: #3c4043; // Texto oscuro
+
+.auth-container {
+    // ---- TIPOGRAFÍA MEJORADA ----
+    font-family: 'Roboto', 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    // ----------------------------
+    min-height: 100vh;
+    background-color: $background-color;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.auth-card {
+    width: 100%;
+    max-width: 400px;
+    background-color: $card-bg;
+    border-radius: 8px;
+    padding: 30px;
+    // Sombra sutil y flotante
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.08), 0 4px 6px -1px rgba(0, 0, 0, 0.1); 
+}
+
+.card-title {
+    text-align: center;
+    margin-bottom: 25px;
+    color: $text-color;
+    font-weight: 600;
+}
+
+// --- Estilos de Formulario y Campos ---
+.form-group {
+    margin-bottom: 20px;
+    label {
+        display: block;
+        margin-bottom: 5px;
+        font-weight: 500;
+        font-size: 0.95rem;
+        color: $text-color;
+    }
+    input {
+        width: 100%;
+        padding: 12px 10px;
+        border: 1px solid #dadce0; 
+        border-radius: 4px;
+        transition: border-color 0.3s, box-shadow 0.3s;
+        box-sizing: border-box;
+        // Asegura que la fuente también se aplique en los campos de entrada
+        font-family: inherit; 
+
+        &:focus {
+            border-color: $primary-color;
+            box-shadow: 0 0 0 1px $primary-color;
+            outline: none;
+        }
+    }
+}
+
+// --- Mensajes de Estado ---
+.error-message, .success-message {
+    padding: 10px;
+    border-radius: 4px;
+    margin-bottom: 15px;
+    font-size: 0.9rem;
+    text-align: center;
+    
+    .fas {
+        margin-right: 8px;
+    }
+}
+.error-message {
+    background-color: #fce8e6;
+    color: #d93025;
+}
+.success-message {
+    background-color: #e6f4ea;
+    color: #1e8e3e;
+}
+
+// --- Botones ---
+.button-group {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    margin-top: 25px;
+}
+
+.submit-button {
+    flex-grow: 1;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 20px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.1s;
+    font-family: inherit; // Asegura que los botones también usen la nueva fuente
+
+    &:disabled {
+        background-color: #999;
+        color: #f7f7f7;
+        cursor: not-allowed;
+    }
+    
+    &:active {
+        transform: scale(0.99);
+    }
+}
+
+.primary {
+    background-color: $primary-color;
+    color: white;
+
+    &:hover:not(:disabled) {
+        background-color: color.adjust($primary-color, $lightness: -5%); 
+    }
+}
+
+.secondary {
+    background-color: $secondary-color;
+    color: $text-color;
+
+    &:hover:not(:disabled) {
+        background-color: color.adjust($secondary-color, $lightness: -5%); 
+    }
+}

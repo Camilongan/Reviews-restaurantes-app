@@ -1,0 +1,119 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+<div class="reviews-container">
+    <header class="app-header">
+        <h1>Gestión de Reseñas</h1>
+        <button (click)="logout()" class="logout-button">
+            <i class="fas fa-sign-out-alt"></i> Salir
+        </button>
+    </header>
+
+    <!-- Formulario de Creación/Edición -->
+    <div class="form-card">
+        <h2>{{ isEditing ? 'Editar Reseña' : 'Crear Nueva Reseña' }}</h2>
+
+        <!-- Mensajes de Error (mejor UX que un simple alert) -->
+        <div *ngIf="errorMessage" class="error-message">
+            <i class="fas fa-exclamation-triangle"></i> {{ errorMessage }}
+        </div>
+
+        <form (ngSubmit)="saveReview()" #reviewForm="ngForm">
+            <!-- Nombre del Restaurante -->
+            <div class="form-group">
+                <label for="nombre">Restaurante:</label>
+                <input 
+                    type="text" 
+                    id="nombre" 
+                    name="nombreRestaurante" 
+                    [(ngModel)]="currentReview.nombreRestaurante" 
+                    required 
+                    placeholder="Escribe el nombre del restaurante..."
+                >
+            </div>
+
+            <!-- Calificación (Estrellas Interactivas) -->
+            <div class="form-group rating-group">
+                <label>Calificación:</label>
+                <div class="stars">
+                    <!-- Iteración para renderizar 5 estrellas -->
+                    <i 
+                        *ngFor="let star of [1, 2, 3, 4, 5]" 
+                        class="fa-star"
+                        [ngClass]="{'fas': star <= currentReview.calificacion, 'far': star > currentReview.calificacion}"
+                        (click)="currentReview.calificacion = star"
+                    ></i>
+                </div>
+                <!-- Input oculto para que el formulario sepa el valor -->
+                <input type="number" name="calificacion" [(ngModel)]="currentReview.calificacion" required hidden>
+            </div>
+
+            <!-- Fecha de Visita -->
+            <div class="form-group">
+                <label for="fecha">Fecha de Visita:</label>
+                <!-- Angular necesita que la fecha sea una cadena en formato YYYY-MM-DD para el input type="date" -->
+                <input 
+                    type="date" 
+                    id="fecha" 
+                    name="fechaVisita" 
+                    [ngModel]="currentReview.fechaVisita | date: 'yyyy-MM-dd'" 
+                    (ngModelChange)="currentReview.fechaVisita = $event"
+                    required
+                >
+            </div>
+
+            <!-- Observaciones -->
+            <div class="form-group">
+                <label for="observaciones">Observaciones:</label>
+                <textarea 
+                    id="observaciones" 
+                    name="observaciones" 
+                    [(ngModel)]="currentReview.observaciones" 
+                    placeholder="Detalles sobre tu experiencia..."
+                ></textarea>
+            </div>
+
+            <div class="form-actions">
+                <button type="submit" [disabled]="!reviewForm.valid" class="save-button">
+                    <i class="fas fa-save"></i> {{ isEditing ? 'Guardar Cambios' : 'Crear Reseña' }}
+                </button>
+                <button type="button" (click)="resetForm()" class="cancel-button" *ngIf="isEditing">
+                    <i class="fas fa-undo"></i> Cancelar Edición
+                </button>
+            </div>
+        </form>
+    </div>
+
+    <!-- Lista de Reseñas -->
+    <div class="reviews-list">
+        <h2 *ngIf="reviews.length > 0">Mis Reseñas ({{ reviews.length }})</h2>
+        <h2 *ngIf="reviews.length === 0">No hay reseñas creadas. ¡Sé el primero!</h2>
+
+        <div *ngFor="let review of reviews" class="review-card">
+            <div class="review-header">
+                <h3>{{ review.nombreRestaurante }}</h3>
+                <div class="rating-display">
+                    <!-- Muestra la calificación actual -->
+                    <i 
+                        *ngFor="let star of [1, 2, 3, 4, 5]" 
+                        class="fa-star"
+                        [ngClass]="{'fas': star <= review.calificacion, 'far': star > review.calificacion}"
+                    ></i>
+                </div>
+            </div>
+
+            <p class="review-meta">
+                Visitado el: {{ review.fechaVisita | date: 'longDate' }}
+            </p>
+            
+            <p class="review-obs">{{ review.observaciones }}</p>
+
+            <div class="review-actions">
+                <button (click)="editReview(review)" class="edit-button">
+                    <i class="fas fa-edit"></i> Editar
+                </button>
+                <button (click)="deleteReview(review._id)" class="delete-button">
+                    <i class="fas fa-trash-alt"></i> Eliminar
+                </button>
+            </div>
+        </div>
+    </div>
+</div>

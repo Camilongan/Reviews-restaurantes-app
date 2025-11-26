@@ -1,0 +1,67 @@
+<div class="auth-container">
+    <div class="auth-card">
+        
+        <!-- Título que refleja ambos modos -->
+        <h2 class="card-title">Acceso o Registro</h2>
+
+        <!-- Mensaje de error o estado -->
+        <div *ngIf="errorMessage" class="error-message">
+            <i class="fas fa-exclamation-triangle"></i> {{ errorMessage }}
+        </div>
+        <div *ngIf="successMessage" class="success-message">
+            <i class="fas fa-check-circle"></i> {{ successMessage }}
+        </div>
+        
+        <!-- Formulario Único para ambas acciones -->
+        <form #authForm="ngForm">
+            
+            <div class="form-group">
+                <label for="username">Usuario (o Correo)</label>
+                <input 
+                    type="text" 
+                    id="username" 
+                    name="username" 
+                    [(ngModel)]="credentials.username" 
+                    required 
+                    placeholder="Tu nombre de usuario o correo"
+                >
+            </div>
+
+            <div class="form-group">
+                <label for="password">Contraseña</label>
+                <input 
+                    type="password" 
+                    id="password" 
+                    name="password" 
+                    [(ngModel)]="credentials.password" 
+                    required
+                    placeholder="********"
+                >
+            </div>
+
+            <!-- Contenedor para los dos botones -->
+            <div class="button-group">
+                <!-- Botón de Iniciar Sesión (Primario) -->
+                <button 
+                    type="button" 
+                    (click)="login()" 
+                    [disabled]="!authForm.valid" 
+                    class="submit-button primary"
+                >
+                    Iniciar Sesión
+                </button>
+                
+                <!-- Botón de Registrarse (Secundario) -->
+                <button 
+                    type="button" 
+                    (click)="register()" 
+                    [disabled]="!authForm.valid" 
+                    class="submit-button secondary"
+                >
+                    Registrarse
+                </button>
+            </div>
+        </form>
+        
+    </div>
+</div>

@@ -1,0 +1,316 @@
+// Variables de color
+$primary-color: #4285f4; // Azul de Google
+$secondary-color: #34a853; // Verde
+$accent-color: #fbbc05; // Amarillo (Estrellas)
+$background-color: #f7f7f7; // Fondo ligero
+$card-bg: #ffffff;
+$text-color: #3c4043; // Texto oscuro
+
+.reviews-container {
+    min-height: 100vh;
+    background-color: $background-color;
+    padding: 20px;
+    font-family: 'Roboto', sans-serif;
+    color: $text-color;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.app-header {
+    width: 100%;
+    max-width: 900px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #ddd;
+
+    h1 {
+        font-size: 1.8rem;
+        font-weight: 500;
+        color: $primary-color;
+    }
+}
+
+.logout-button {
+    background-color: #f44336; // Rojo para Salir
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    font-weight: 500;
+
+    &:hover {
+        background-color: #d32f2f;
+    }
+}
+
+// --- Estilo de las Tarjetas (Google Card) ---
+.form-card, .review-card {
+    width: 100%;
+    max-width: 900px;
+    background-color: $card-bg;
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 20px;
+    // Sombra sutil de Google (elevation)
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.08), 0 1px 2px 0 rgba(0, 0, 0, 0.05); 
+    transition: box-shadow 0.3s ease-in-out;
+
+    h2 {
+        font-size: 1.5rem;
+        margin-top: 0;
+        margin-bottom: 15px;
+        color: $text-color;
+        border-bottom: 1px solid #eee;
+        padding-bottom: 10px;
+    }
+}
+
+.review-card:hover {
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+// --- Estilos de Formulario ---
+.form-group {
+    margin-bottom: 15px;
+    label {
+        display: block;
+        margin-bottom: 5px;
+        font-weight: 500;
+        font-size: 0.95rem;
+    }
+    input[type="text"], input[type="date"], textarea {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #dadce0; // Borde gris claro
+        border-radius: 4px;
+        transition: border-color 0.3s, box-shadow 0.3s;
+        box-sizing: border-box;
+
+        &:focus {
+            border-color: $primary-color;
+            box-shadow: 0 0 0 1px $primary-color;
+            outline: none;
+        }
+    }
+    textarea {
+        resize: vertical;
+        min-height: 80px;
+    }
+}
+
+.error-message {
+    background-color: #fce8e6;
+    color: #d93025;
+    padding: 10px;
+    border-radius: 4px;
+    margin-bottom: 15px;
+    font-size: 0.9rem;
+    .fas {
+        margin-right: 8px;
+    }
+}
+
+.form-actions {
+    display: flex;
+    gap: 10px;
+    justify-content: flex-end;
+
+    button {
+        padding: 10px 20px;
+        border: none;
+        border-radius: 20px;
+        cursor: pointer;
+        font-weight: 600;
+        transition: opacity 0.3s, transform 0.1s;
+
+        &:active {
+            transform: scale(0.98);
+        }
+        
+        &:disabled {
+            background-color: #999;
+            cursor: not-allowed;
+        }
+    }
+}
+
+.save-button {
+    background-color: $primary-color;
+    color: white;
+    &:hover:not(:disabled) {
+        background-color: darken($primary-color, 5%);
+    }
+}
+
+.cancel-button {
+    background-color: #e8eaed;
+    color: $text-color;
+    &:hover {
+        background-color: darken(#e8eaed, 5%);
+    }
+}
+
+// --- Estilos de Calificación (Estrellas) ---
+.rating-group {
+    display: flex;
+    align-items: center;
+
+    label {
+        margin-right: 15px;
+        margin-bottom: 0;
+    }
+
+    .stars {
+        font-size: 1.5rem;
+        cursor: pointer;
+        
+        .fa-star {
+            color: #ddd; // Estrellas vacías grises
+            transition: color 0.2s;
+            &:hover {
+                color: $accent-color;
+            }
+        }
+        
+        // Estrellas llenas
+        .fas { 
+            color: $accent-color;
+        }
+    }
+}
+
+
+// --- Estilos de la Lista de Reseñas ---
+.reviews-list {
+    width: 100%;
+    max-width: 900px;
+    
+    h2 {
+        font-size: 1.4rem;
+        margin-bottom: 15px;
+        font-weight: 400;
+        color: #5f6368;
+    }
+}
+
+.review-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 5px;
+    
+    h3 {
+        font-size: 1.25rem;
+        font-weight: 500;
+        color: $text-color;
+        margin: 0;
+    }
+}
+
+.rating-display {
+    // Definimos el color para las estrellas en la lista
+    .fa-star {
+        font-size: 1.1rem;
+        color: #ddd; // Color para estrellas vacías
+    }
+    // Sobrescribimos a amarillo para las estrellas llenas (fas)
+    .fas { 
+        color: $accent-color; 
+    }
+}
+
+.review-meta {
+    font-size: 0.85rem;
+    color: #5f6368;
+    margin-bottom: 10px;
+}
+
+.review-obs {
+    margin-bottom: 15px;
+    line-height: 1.6;
+}
+
+.review-actions {
+    display: flex;
+    gap: 10px;
+    border-top: 1px solid #eee;
+    padding-top: 10px;
+
+    .edit-button, .delete-button {
+        padding: 8px 15px;
+        border: none;
+        border-radius: 20px;
+        cursor: pointer;
+        font-size: 0.9rem;
+        transition: background-color 0.3s;
+        
+        i {
+            margin-right: 5px;
+        }
+    }
+
+    .edit-button {
+        background-color: #e6f4ea; // Fondo verde claro
+        color: $secondary-color;
+        &:hover {
+            background-color: darken(#e6f4ea, 5%);
+        }
+    }
+
+    .delete-button {
+        background-color: #fce8e6; // Fondo rojo claro
+        color: #d93025;
+        &:hover {
+            background-color: darken(#fce8e6, 5%);
+        }
+    }
+}
+
+// --- Responsive: Móvil (Aplica en pantallas pequeñas) ---
+@media (max-width: 600px) {
+    .reviews-container {
+        padding: 10px;
+    }
+
+    .app-header {
+        flex-direction: column;
+        align-items: flex-start;
+        
+        h1 {
+            margin-bottom: 10px;
+            font-size: 1.6rem;
+        }
+    }
+
+    .logout-button {
+        width: 100%;
+    }
+
+    .review-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 5px;
+    }
+
+    .review-actions {
+        flex-direction: column;
+        .edit-button, .delete-button {
+            width: 100%;
+            text-align: center;
+        }
+    }
+
+    .form-actions {
+        flex-direction: column-reverse;
+        
+        button {
+            width: 100%;
+        }
+    }
+}
